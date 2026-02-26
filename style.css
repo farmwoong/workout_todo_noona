@@ -1,0 +1,675 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #0f0f12;
+  --surface: #1a1a1f;
+  --surface-hover: #222228;
+  --border: #2d2d35;
+  --text: #e8e8ed;
+  --text-muted: #888899;
+  --accent: #7c5cff;
+  --accent-hover: #9178ff;
+  --danger: #e85555;
+  --danger-hover: #f06b6b;
+  --success: #4ade80;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.app-layout {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.calendar-side {
+  flex-shrink: 0;
+  width: 260px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.calendar-month-label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn-cal-nav {
+  width: 32px;
+  height: 32px;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+.btn-cal-nav:hover {
+  color: var(--accent-hover);
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  position: relative;
+}
+
+.calendar-day:hover {
+  background: var(--surface-hover);
+}
+
+.calendar-day.other-month {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.calendar-day.today {
+  background: rgba(124, 92, 255, 0.2);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.calendar-day.selected {
+  background: var(--accent);
+  color: white;
+}
+
+.calendar-day.has-record::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.calendar-day.selected.has-record::after {
+  background: white;
+}
+
+.calendar-day.other-month.has-record::after {
+  background: var(--success);
+}
+
+.workout-side {
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.todo-input::placeholder {
+  color: var(--text-muted);
+}
+
+.todo-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.2);
+}
+
+.btn {
+  padding: 0.85rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-add {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-add:hover {
+  background: var(--accent-hover);
+}
+
+.todo-list {
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  transition: background 0.2s, border-color 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.todo-item:hover {
+  background: var(--surface-hover);
+}
+
+.todo-item.editing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.15);
+}
+
+.todo-item .todo-text {
+  flex: 1;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.todo-item.done .todo-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.todo-item .edit-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+}
+
+.todo-item .edit-input:focus {
+  border-color: var(--accent);
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-icon:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+}
+
+.btn-icon.btn-done:hover {
+  color: var(--success);
+}
+
+.btn-icon.btn-edit:hover {
+  color: var(--accent);
+}
+
+.btn-icon.btn-delete:hover {
+  color: var(--danger);
+  background: rgba(232, 85, 85, 0.15);
+}
+
+.stats {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s, visibility 0.25s;
+  max-width: 90%;
+}
+
+.toast.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.toast.error {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+#todoList:empty::before {
+  content: '할 일이 없습니다. 위에서 새로 추가해 보세요.';
+  display: block;
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab {
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+/* Workout */
+.workout-date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.btn-date-nav {
+  width: 40px;
+  height: 40px;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+
+.workout-date-display {
+  text-align: center;
+}
+
+.workout-date-display span {
+  display: block;
+}
+
+#workoutDateLabel {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.workout-date-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.btn-today {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-today:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.workout-total {
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.workout-total strong {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.workout-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.workout-part-input {
+  flex: 0 0 100px;
+  max-width: 120px;
+}
+
+.workout-add-form .todo-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.workout-list {
+  list-style: none;
+}
+
+.workout-exercise {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.workout-exercise-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+}
+
+.workout-exercise-header:hover {
+  background: var(--surface-hover);
+}
+
+.workout-exercise-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.workout-toggle {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.workout-exercise.collapsed .workout-toggle {
+  transform: rotate(-90deg);
+}
+
+.workout-exercise.collapsed .workout-sets-table-wrap,
+.workout-exercise.collapsed .workout-exercise-actions {
+  display: none;
+}
+
+.workout-exercise-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.workout-exercise-part {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+}
+
+.workout-exercise-volume {
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.workout-sets-table-wrap {
+  overflow-x: auto;
+}
+
+.workout-sets-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.workout-sets-table th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+
+.workout-sets-table td {
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.workout-sets-table input.set-input {
+  width: 56px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+  text-align: right;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.workout-sets-table input.set-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.workout-set-done {
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.workout-set-done.done {
+  color: var(--success);
+}
+
+.workout-set-remove {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.workout-set-remove:hover {
+  color: var(--danger);
+}
+
+.set-delete-check {
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+.workout-exercise-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.workout-exercise-actions button {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.workout-exercise-actions button:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.workout-exercise-actions .btn-remove-exercise:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.workout-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: none;
+}
+
+.workout-empty.show {
+  display: block;
+}
+
+.workout-list:not(:empty) + .workout-empty {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .calendar-side {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .todo-form {
+    flex-direction: column;
+  }
+
+  .btn-add {
+    width: 100%;
+  }
+}

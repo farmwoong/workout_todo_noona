@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>운동 기록</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>운동 기록</h1>
+      <p class="subtitle">날짜별로 운동을 기록하세요</p>
+    </header>
+
+    <div class="app-layout">
+      <!-- 왼쪽: 월간 달력 -->
+      <aside class="calendar-side">
+        <div class="calendar-header">
+          <button type="button" class="btn-icon btn-cal-nav" id="calendarPrevMonth" title="이전 달">‹</button>
+          <span id="calendarMonthLabel" class="calendar-month-label">2025년 2월</span>
+          <button type="button" class="btn-icon btn-cal-nav" id="calendarNextMonth" title="다음 달">›</button>
+        </div>
+        <div class="calendar-weekdays">
+          <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </aside>
+
+      <!-- 오른쪽: 운동 기록 -->
+      <main class="workout-side">
+        <section class="workout-panel">
+          <div class="workout-date">
+            <button type="button" class="btn-icon btn-date-nav" id="workoutPrevDay" title="이전 날">‹</button>
+            <div class="workout-date-display">
+              <span id="workoutDateLabel">오늘</span>
+              <span id="workoutDateSub" class="workout-date-sub"></span>
+            </div>
+            <button type="button" class="btn-icon btn-date-nav" id="workoutNextDay" title="다음 날">›</button>
+          </div>
+          <button type="button" class="btn btn-today" id="workoutTodayBtn">오늘로 이동</button>
+
+          <div class="workout-total" id="workoutTotalWrap">
+            전체 볼륨 <strong id="workoutTotalVolume">0</strong> kg
+          </div>
+
+          <form class="workout-add-form" id="workoutAddForm">
+            <input type="text" id="workoutExerciseName" class="todo-input" placeholder="운동 이름 (예: 바벨 백스쿼트)" autocomplete="off" />
+            <input type="text" id="workoutExercisePart" class="todo-input workout-part-input" placeholder="부위 (예: 하체)" autocomplete="off" />
+            <button type="submit" class="btn btn-add">운동 추가</button>
+          </form>
+
+          <ul class="workout-list" id="workoutList"></ul>
+
+          <div id="workoutEmpty" class="workout-empty">
+            이 날 기록된 운동이 없습니다.<br>위에서 운동을 추가해 보세요.
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+  </div>
+
+  <script type="module" src="app.js?v=6"></script>
+</body>
+</html>
